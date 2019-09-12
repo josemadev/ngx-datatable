@@ -55,6 +55,10 @@ var DatatableComponent = /** @class */ (function () {
          */
         this.scrollbarH = false;
         /**
+         * Enable autoLimit
+         */
+        this.autoLimit = false;
+        /**
          * The row height; which is necessary
          * to calculate the height for the lazy rendering.
          */
@@ -653,7 +657,7 @@ var DatatableComponent = /** @class */ (function () {
     DatatableComponent.prototype.recalculateDims = function () {
         var dims = this.dimensionsHelper.getDimensions(this.element);
         this._innerWidth = Math.floor(dims.width);
-        if (this.scrollbarV) {
+        if (this.scrollbarV || this.autoLimit) {
             var height = dims.height;
             if (this.headerHeight)
                 height = height - this.headerHeight;
@@ -724,7 +728,7 @@ var DatatableComponent = /** @class */ (function () {
         // Keep the page size constant even if the row has been expanded.
         // This is because an expanded row is still considered to be a child of
         // the original row.  Hence calculation would use rowHeight only.
-        if (this.scrollbarV && this.virtualization) {
+        if (this.scrollbarV && this.virtualization || this.autoLimit) {
             var size = Math.ceil(this.bodyHeight / this.rowHeight);
             return Math.max(size, 0);
         }
@@ -966,6 +970,10 @@ var DatatableComponent = /** @class */ (function () {
         core_1.Input(),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "scrollbarH", void 0);
+    __decorate([
+      core_1.Input(),
+      __metadata("design:type", Boolean)
+    ], DatatableComponent.prototype, "autoLimit", void 0);
     __decorate([
         core_1.Input(),
         __metadata("design:type", Number)

@@ -232,6 +232,11 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
   @Input() scrollbarH: boolean = false;
 
   /**
+   * Enable autoLimit
+   */
+  @Input() autoLimit: boolean = false;
+
+  /**
    * The row height; which is necessary
    * to calculate the height for the lazy rendering.
    */
@@ -900,7 +905,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
     const dims = this.dimensionsHelper.getDimensions(this.element);
     this._innerWidth = Math.floor(dims.width);
 
-    if (this.scrollbarV) {
+    if (this.scrollbarV || this.autoLimit) {
       let height = dims.height;
       if (this.headerHeight) height = height - this.headerHeight;
       if (this.footerHeight) height = height - this.footerHeight;
@@ -978,7 +983,7 @@ export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
     // Keep the page size constant even if the row has been expanded.
     // This is because an expanded row is still considered to be a child of
     // the original row.  Hence calculation would use rowHeight only.
-    if (this.scrollbarV && this.virtualization) {
+    if (this.scrollbarV && this.virtualization || this.autoLimit) {
       const size = Math.ceil(this.bodyHeight / this.rowHeight);
       return Math.max(size, 0);
     }

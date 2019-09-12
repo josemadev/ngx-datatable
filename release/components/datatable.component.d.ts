@@ -66,6 +66,10 @@ export declare class DatatableComponent implements OnInit, DoCheck, AfterViewIni
      */
     scrollbarH: boolean;
     /**
+     * Enable autoLimit
+     */
+    autoLimit: boolean;
+    /**
      * The row height; which is necessary
      * to calculate the height for the lazy rendering.
      */
